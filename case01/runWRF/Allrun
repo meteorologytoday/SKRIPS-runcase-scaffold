@@ -1,0 +1,11 @@
+#!/bin/bash
+
+./Allclean
+
+ln -sf ../../WPSV41/met_em* .
+
+cp $WRF_DIR/main/real.exe .
+cp $WRF_DIR/main/wrf.exe .
+
+#mpirun -np 8 real.exe
+#mpirun -np 8 wrf.exe

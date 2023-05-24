@@ -1,0 +1,14 @@
+*.nc
+*.bin
+*.swp
+*.tmp
+*.asv
+*.mat
+*.meta
+*.data
+*.tar
+*.exe
+*.grib
+*.o
+*.a
+*.mod

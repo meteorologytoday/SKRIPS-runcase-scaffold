@@ -1,0 +1,7 @@
+#!/bin/bash
+
+rm -rf wrfout*
+rm -rf rsl*
+rm -rf PET*
+rm -rf namelist.output
+rm -rf wrf*_d01
