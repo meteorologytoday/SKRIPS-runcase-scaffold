@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#SBATCH --job-name="case01_032.cpl"
+#SBATCH --job-name="case01_032.Jan"
 #SBATCH --output="case01_032.cpl.%j.%N.out"
 #SBATCH --partition=compute
 #SBATCH --nodes=1
@@ -8,22 +8,20 @@
 #SBATCH --export=ALL
 #SBATCH -t 12:00:00
 
-source $HOME/.bashrc_skrips
 
-start_date="2018-02-02"
-end_date="2018-02-16"
-run_days=16
 
-nproc_ocn=4
-nproc_atm=4
+source setting.sh
+source $SKRIPS_ENV
+
 nproc_ttl=$(( $nproc_ocn + $nproc_atm ))
 
 ./Allclean
 
-ln -sf ../../caseInput/mitGCM_bin/${start_date}/* .
+
+ln -sf $caseroot/caeInput/mitGCM_bin/${start_date}/* .
 
 for model in SKRIPS mitGCM WRF; do
-    cp ../../caseInput/$model/* .
+    cp $caseroot/caseInput/$model/* .
 done
 
 
@@ -36,7 +34,6 @@ ln -sf ../../SKRIPS_program/coupledCode/esmf_application .
 # ============================== 
 # This section wants to get a reasonable
 # heat flux for the first timestep
-
 cp $WRF_DIR/main/wrf.exe .
 cp ../runWRF/wrfbdy_d01 . 
 cp ../runWRF/wrfinput_d01 .
