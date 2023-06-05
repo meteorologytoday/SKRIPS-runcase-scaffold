@@ -14,7 +14,7 @@
 # diag_mnc     = .FALSE.,
 # do not specify levels => all levels are selected
 #---
-   frequency(1) = 86400.0,
+   frequency(1) = 10800.0,
    fields(1,1) = 'THETA   ',
                  'SALT    ',
                  'UVEL    ',
@@ -24,7 +24,7 @@
                  'DRHODR  ',
    filename(1) = 'diag_state',
 
-   frequency(2) = 86400.0,
+   frequency(2) = 10800.0,
    fields(1,2) = 'TOTTTEND',
                  'ADVr_TH ',
                  'ADVx_TH ',
@@ -41,7 +41,7 @@
                   
    filename(2) = 'diag_Tbdgt',
  
-   frequency(3) = 86400.0,
+   frequency(3) = 10800.0,
    fields(1,3) = 'TOTSTEND',
                  'ADVr_SLT',
                  'ADVx_SLT',
@@ -59,20 +59,20 @@
    filename(3) = 'diag_Sbdgt',
 
 #
-   frequency(4) = 86400.0,,
+   frequency(4) = 10800.0,,
    fields(1,4) = 'Um_Advec','Um_Diss ','Um_dPhiX', 
                  'Um_Ext  ','TOTUTEND','VISrI_Um',
                  'Um_AdvZ3','Um_AdvRe',
    filename(4) = 'diag_Umom',
 #
-   frequency(5) = 86400.0,,
+   frequency(5) = 10800.0,,
    fields(1,5) = 'Vm_Advec','Vm_Diss ','Vm_dPhiY',
                  'Vm_Ext  ','TOTVTEND','VISrI_Vm',
                  'Vm_AdvZ3','Vm_AdvRe',
    filename(5) = 'diag_Vmom',
 
 
-    frequency(6) = 86400.0,
+    frequency(6) = 10800.0,
     fields(1,6) = 'ETAN    ',
                   'PHIBOT  ',
                   'botTauX ',
@@ -99,10 +99,26 @@
                   'EXFqnet',
     filename(6) = 'diag_2D',
 
-   frequency(7) = 86400.0,
+   frequency(7) = -10800.0,
+   timePhase(7) = 0,
    fields(1,7) = 'THETA   ',
                  'SALT    ',
+                 'UVEL    ',
+                 'VVEL    ',
+                 'WVEL    ',
    filename(7) = 'diag_snaps_state',
+
+
+#   frequency(8) = -10800.0,
+#   fields(1,8) = 'THETA   ',
+#                 'SALT    ',
+#                 'UVEL    ',
+#                 'VVEL    ',
+#                 'WVEL    ',
+#   levels(1, 8) = 1.,   2.,  3.,  4.,  5.,  6.,  7.,  8.,  9., 10., 
+#                  11., 12., 13., 14., 15., 16., 17., 18., 19., 20.,
+#   filename(8) = 'diag_highfreq',
+
 
 #\
 #---
