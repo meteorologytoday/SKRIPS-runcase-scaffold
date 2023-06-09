@@ -1,4 +1,5 @@
 *.nc
+*.pyc
 *.bin
 *.swp
 *.tmp
