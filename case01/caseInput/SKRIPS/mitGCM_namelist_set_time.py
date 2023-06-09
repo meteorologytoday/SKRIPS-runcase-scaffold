@@ -41,15 +41,16 @@ run_datetimes = dict(
 parser = f90nml.Parser()
 parser.comment_tokens += "#"
 
+####################################
 files = genInOut("data")
 print("Reading file: %s" % (files["in"],))
 in_nml_data = parser.read(files["in"])
 
 
-in_nml_data["PARM05"]["uVelInitFile"]    = "hycom_U_%s.bin" % (run_datetimes["start_datetime"][2],)
-in_nml_data["PARM05"]["vVelInitFile"]    = "hycom_V_%s.bin" % (run_datetimes["start_datetime"][2],)
-in_nml_data["PARM05"]["hydrogThetaFile"] = "hycom_T_%s.bin" % (run_datetimes["start_datetime"][2],)
-in_nml_data["PARM05"]["hydrogSaltFile"]  = "hycom_S_%s.bin" % (run_datetimes["start_datetime"][2],)
+in_nml_data["PARM05"]["uVelInitFile"]    = "init_cond_U_%s.bin" % (run_datetimes["start_datetime"][2],)
+in_nml_data["PARM05"]["vVelInitFile"]    = "init_cond_V_%s.bin" % (run_datetimes["start_datetime"][2],)
+in_nml_data["PARM05"]["hydrogThetaFile"] = "init_cond_T_%s.bin" % (run_datetimes["start_datetime"][2],)
+in_nml_data["PARM05"]["hydrogSaltFile"]  = "init_cond_S_%s.bin" % (run_datetimes["start_datetime"][2],)
 
 print("Writing file: %s" % (files["out"],))
 in_nml_data.end_comma = True
@@ -57,6 +58,33 @@ in_nml_data.write(files["out"], force=True)
 
 
 
+####################################
+files = genInOut("data.obcs")
+print("Reading file: %s" % (files["in"],))
+in_nml_data = parser.read(files["in"])
+
+
+for bnd_short, bnd_long in [
+    ("N", "north"),
+    ("S", "south"),
+    ("E", "east"),
+    ("W", "west"),
+]:
+
+    for varname in ["U", "V", "T", "S"]:
+
+        in_nml_data["OBCS_PARM01"]["OB%s%sFile" % (bnd_short, varname) ] = "open_bnd_%s_%s_%s_%s.bin" % (
+            varname,
+            run_datetimes["start_datetime"][2],
+            run_datetimes["end_datetime"][2],
+            bnd_long,
+        )
+
+print("Writing file: %s" % (files["out"],))
+in_nml_data.end_comma = True
+in_nml_data.write(files["out"], force=True)
+
+####################################
 files = genInOut("data.exf")
 print("Reading file: %s" % (files["in"],))
 in_nml_data_exf = parser.read(files["in"])
@@ -70,6 +98,7 @@ in_nml_data_exf.end_comma = True
 in_nml_data_exf.write(files["out"], force=True)
 
 
+####################################
 files = genInOut("data.cal")
 print("Reading file: %s" % (files["in"],))
 in_nml_data_cal = parser.read(files["in"])
@@ -81,6 +110,7 @@ print("Writing file: %s" % (files["out"],))
 in_nml_data_cal.end_comma = True
 in_nml_data_cal.write(files["out"], force=True)
 
+####################################
 files = genInOut("namelist.rc")
 print("Reading file: %s" % (files["in"],))
 skrips_rc_file = skrips_rc.SKRIPS_rc(files["in"]).read()
